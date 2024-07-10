@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { Link , useNavigate } from "react-router-dom";
 
-import {message} from 'antd'
+
 
 
 function Login() {
