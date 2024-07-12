@@ -7,7 +7,9 @@ import { loginUser } from "../crudCalls/users";
 
 
 
+
 function Login() {
+  const navigate = useNavigate();
   
   const onFinish = async (values)=>{
     console.log(values)
@@ -16,6 +18,7 @@ function Login() {
       console.log(response);
       if(response.success){
         message.success(response.message);
+        navigate('/');
       }
       else{
         message.error(response.message);
