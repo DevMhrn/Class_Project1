@@ -1,11 +1,29 @@
 import React, { useEffect } from "react";
 import { Form, Input, Button, Radio, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { registerUser } from "../crudCalls/users";
+import "./register.css";
 
 
 function Register() {
   const onFinish = async (values) => {
     console.log(values);
+    try{
+      const response = await registerUser(values);
+      console.log(response);
+      if(response.success){
+        message.success(response.message);
+      }
+      else{
+        message.error(response.message);
+      }
+      
+    }
+    catch(error){
+      message.error("User Registration Failed, Please try again");
+
+    }
    
   };
 
@@ -90,9 +108,9 @@ function Register() {
                 </div>
               </Form.Item>
             </Form>
-            <div>
+            <div className="register-to-login">
               <p>
-                Already a user? <Link to="/login">Login now</Link>
+                Already a user? <Link to="/login" className="login-now">Login now</Link>
               </p>
             </div>
           </section>

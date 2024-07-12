@@ -10,10 +10,13 @@ router.post("/register", async (req, res) => {
         const user = await User.findOne({email : req.body.email});
         console.log(user)
         if(user){
+            console.log("User Already Exists")
+
             res.send({
                 success:false,
                 message:"User Already Exists"
             })
+
             // res.status(500).json({message : "User Already Exists"})
         }
         else{
@@ -23,12 +26,22 @@ router.post("/register", async (req, res) => {
 
             const newUser = new User(req.body);
             await newUser.save();
-            res.status(200).json({message : "User has been registered successfully"});
+            console.log("User Registered Successfully")
+            res.send({
+                success:true,
+                message:"User has been registered successfully"
+            })
+            
         }
 
     }
     catch(error){
-        res.status(500).json({message : "User Registration Failed, Please try again later"});
+        res.send({
+            success:false,
+            message:"User Registration Failed, Please try again later"
+        
+        })
+        
         console.log(error)
     }
 
@@ -43,20 +56,36 @@ router.post("/login", async (req, res) => {
         if(user){
             const validPassword = await bcrypt.compare(req.body.password, user.password);   
             if(validPassword){
-                res.status(200).json({message : "User has been logged in successfully"});
+                res.send({
+                    success:true,
+                    message:"User has been logged in successfully"
+                })
+                
             }
             else{
-                res.status(500).json({message : "Invalid Password"});
+                res.send({
+                    success:false,
+                    message:"Invalid Password"
+                })
+                
             }
         }
         else{
-            res.status(500).json({message : "User not found, Register first"});
+            res.send({
+                success:false,
+                message:"User not found, Register first"
+            })
+            
         }
         
 
     }
     catch(error){
-        res.status(500).json({message : "User Login Failed, Please try again later"});
+        res.send({
+            success:false,
+            message:"User Login Failed, Please try again later"
+        
+        })
         console.log(error)
     }
   

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { Button, Form, Input, message } from "antd";
 import { Link , useNavigate } from "react-router-dom";
+import axios from "axios";
+import { loginUser } from "../crudCalls/users";
 
 
 
@@ -9,6 +11,20 @@ function Login() {
   
   const onFinish = async (values)=>{
     console.log(values)
+    try{
+      const response = await loginUser(values);
+      console.log(response);
+      if(response.success){
+        message.success(response.message);
+      }
+      else{
+        message.error(response.message);
+      }
+    }
+    catch(error){
+      message.error("User Login Failed, Please try again");
+    }
+
    
   }
 
@@ -64,9 +80,9 @@ function Login() {
               </Button>
             </Form.Item>
           </Form>
-          <div>
+          <div className='login-to-register'>
             <p>
-              New User? <Link to="/register">Register Here</Link>
+              New User? <Link to="/register" className='register-now'>Register Here</Link>
             </p>
           </div>
         </section>
