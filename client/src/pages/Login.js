@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Button, Form, Input, message } from "antd";
 import { Link , useNavigate } from "react-router-dom";
-import axios from "axios";
+
 import { loginUser } from "../crudCalls/users";
 
 
@@ -31,6 +31,12 @@ function Login() {
 
    
   }
+  useEffect(()=>{
+    if(localStorage.getItem('token')){
+      navigate('/');
+    }
+
+  },[]);
 
  
   return (

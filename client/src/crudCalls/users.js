@@ -18,3 +18,13 @@ export const loginUser = async(user)=>{
         return error.response.data;
     }
 }
+
+export const getUser = async()=>{
+    try{
+        const response = await axiosInstance.get("/api/users/profile");
+        return response.data;
+    }
+    catch(error){
+        return error.response.data;
+    }
+}

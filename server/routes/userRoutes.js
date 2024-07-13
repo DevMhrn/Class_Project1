@@ -60,38 +60,7 @@ router.post("/login", async (req, res) => {
     try{
         const user = await User.findOne({email : req.body.email});
         console.log(user);
-        // if(user){
-        //     const validPassword = await bcrypt.compare(req.body.password, user.password);   
-        //     if(validPassword){
-        //         const token = jwt.sign({userId : user._id}, process.env.JWT_SECRET);
-        //         localStorage.setItem("token", token);
-
-
-        //         res.send({
-        //             success:true,
-        //             message:"User has been logged in successfully",
-        //             token:token,
-        //         })
-                
-                
-        //     }
-        //     else{
-        //         res.send({
-        //             success:false,
-        //             message:"Invalid Password"
-        //         })
-                
-        //     }
-
-
-        // }
-        // else{
-        //     res.send({
-        //         success:false,
-        //         message:"User not found, Register first"
-        //     })
-            
-        // }
+    
         if(!user){
             res.send({
                 success:false,
@@ -138,14 +107,14 @@ router.get('/profile',authMiddleware, async (req, res) => {
             user:user,
             message:"Authorized User"
         })
-
-    }
+    } 
     catch(error){
         res.send({
             success:false,
             message:"User is not authenticated"
         })
     }
+    
 
 });
 
